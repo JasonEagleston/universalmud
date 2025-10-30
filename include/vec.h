@@ -1,11 +1,12 @@
-#ifndef UNIVERSAL_MUD_VEC
-#define UNIVERSAL_MUD_VEC
+#ifndef YUKEN_VEC
+#define YUKEN_VEC
+
 typedef struct {
 	void* data;
+	bool* pop;
 	int cursor;
 	int len;
 	uint8_t dlen;
-	bool* pop;
 } Vec;
 
 Vec vec(size_t dlen, unsigned int len) {
@@ -22,6 +23,10 @@ void free_vec(Vec v) {
 	free(vec.pop);
 }
 
+void v_setpop(Vec v, int at, bool popped) {
+	*(v.pop + at) = popped;
+}
+
 void v_resize(Vec v, unsigned int len) {
 	void* new_data = malloc(v.dlen * len);
 	memcpy(new_data, v.data, v.dlen * v.len);
@@ -30,14 +35,34 @@ void v_resize(Vec v, unsigned int len) {
 	v.data = new_data;
 }
 
-void v_push(Vec v, void* data, size_t size) {
-	memcpy(v.data + (cursor * size), data, size);
+void v_push(Vec v, void* data) {
+	memcpy(v.data + (cursor * v.dlen), data, v.dlen);
+	*(v.pop + v.cursor) = 1;
 	v.cursor++;
 }
-void v_insert(Vec v, void* data, size_t size, int at);
-void* v_get(Vec v, int at);
+
+void v_shift(Vec v, int at, int size, bool right) {
+
+}
+
+void v_insert(Vec v, void* data, size_t size, int at) {
+	bool popped = *(v.pop + at);
+	// if populated shift right then insert
+	if (popped) {
+		v_shift(v, at, 1, 1);
+	}
+	v_setpop(v, at, 1);
+	memcpy(v.data + at, data, v.dlen);
+}
+
+void* v_get(Vec v, int at) {
+	void* retval = v.data + at * v.dlen;
+	return retval;
+}
+
 void* v_pop(Vec v) {
 	void* retval = v.data + v.cursor * v.dlen;
+	*(v.pop + v.cursor) = 0;
 	v.cursor--;
 
 	return retval;
