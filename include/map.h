@@ -14,13 +14,14 @@ typedef struct {
 } Tile;
 
 typedef struct {
+	uint32_t id;
 	Tile* tiles;
 	int width, height;
 } Map;
 
 Map create_map(int, int);
-Map get_map(uint32_t);
-Tile get_tile(uint32_t, Vec2);
+Map* get_map(uint32_t);
+Tile* get_tile(uint32_t, Vec2);
 
 
 #endif

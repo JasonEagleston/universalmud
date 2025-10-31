@@ -9,6 +9,7 @@ typedef struct {
 	uint8_t dlen;
 } Vec;
 
+
 Vec vec(size_t dlen, unsigned int len) {
 	Vec v;
 	v.data = malloc(dlen * len);
@@ -81,6 +82,16 @@ void* v_pop(Vec* v) {
 	v->cursor--;
 
 	return retval;
+}
+
+void* find_by_uint32_id(Vec* v, uint32_t id) {
+	for (unsigned int i = 0; i < v->len; i++) {
+		void* thing = v->data + v->len * v->dlen * i;
+		if *(thing) == id {
+			return thing;
+		}
+	}
+	return NULL;
 }
 
 #endif

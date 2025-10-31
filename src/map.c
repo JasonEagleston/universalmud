@@ -1,16 +1,21 @@
 #include "map.h"
 
-Map* get_map(GameState* state, uint32_t map) {
-	for (unsigned int i = 0; i < state->maps.len; i++) {
-		Map* map = &((Map*)state->maps)[i];
-		if map->id == map return map;
-	}
-	return NULL;
+Map create_map(int width, int height) {
+	Map map;
+	map.width = width;
+	map.height = height;
+	map.tiles = malloc(sizeof(Tile) * width * height);
+	return map;
 }
 
-Tile get_tile(GameState* state, uint32_t map, Vec2 pos) {
+Map* get_map(GameState* state, uint32_t map) {
+	Map* retval = find_by_uint32_id(state->maps, map);
+	return retval;
+}
+
+Tile* get_tile(GameState* state, uint32_t map, Vec2 pos) {
 	Map* map = get_map(map);
-	Tile retval = map->tiles[(pos.x - 1) + (pos.y - 1) * map->width];
+	Tile* retval = map->tiles + ((pos.x - 1) + (pos.y - 1) * map->width);
 
 	return retval;
 }
