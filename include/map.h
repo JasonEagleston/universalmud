@@ -22,6 +22,8 @@ typedef struct {
 Map create_map(int, int);
 Map* get_map(uint32_t);
 Tile* get_tile(uint32_t, Vec2);
+void remove_obj_from_map(Map*, Obj*);
+void add_obj_to_map(Map*, Obj*);
 
 
 #endif

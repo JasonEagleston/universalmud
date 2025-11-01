@@ -20,3 +20,12 @@ Tile* get_tile(GameState* state, uint32_t map, Vec2 pos) {
 
 	return retval;
 }
+
+void remove_obj_from_map(Map* map, Obj* obj) {
+	unsigned int idx = find_by_uint32_id(map->contents, obj->id);
+
+}
+
+void add_obj_to_map(Map* map, Obj* obj) {
+
+}

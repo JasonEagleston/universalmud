@@ -7,6 +7,7 @@ typedef struct {
 	int cursor;
 	int len;
 	uint8_t dlen;
+	bool auto_fill_open_slots; // Reset cursor and autofill slots or keep going.
 } Vec;
 
 
@@ -71,8 +72,9 @@ void v_insert(Vec* v, void* data, size_t size, int at) {
 	memcpy(v->data + at, data, v->dlen);
 }
 
-void* v_get(Vec* v, int at) {
+void* v_get(Vec* v, int at, bool remove) {
 	void* retval = v->data + at * v->dlen;
+	if (remove) v_setpop(at, 0);
 	return retval;
 }
 
@@ -86,11 +88,11 @@ void* v_pop(Vec* v) {
 
 // Assumes that the first struct var is a uint32.
 
-void* find_by_uint32_id(Vec* v, uint32_t id) {
+unsigned int find_by_uint32_id(Vec* v, uint32_t id) {
 	for (unsigned int i = 0; i < v->len; i++) {
 		void* thing = v->data + v->len * v->dlen * i;
 		if *(thing) == id {
-			return thing;
+			return i;
 		}
 	}
 	return NULL;
