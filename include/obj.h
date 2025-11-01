@@ -10,9 +10,9 @@ typedef struct {
 	Vec2f pos;
 } Obj;
 
-Obj new_obj();
+Obj new_obj(GameState*);
 
-void set_pos(Obj*);
+void set_pos(GameState*, Obj*, Vec2f);
 void set_pos_tile(Obj*, Tile*);
 Vec2f get_pos(Obj*);
 

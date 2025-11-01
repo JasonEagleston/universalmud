@@ -2,6 +2,7 @@
 
 Map create_map(int width, int height) {
 	Map map;
+	map.id = get_usable_id();
 	map.width = width;
 	map.height = height;
 	map.tiles = malloc(sizeof(Tile) * width * height);

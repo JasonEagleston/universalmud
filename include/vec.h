@@ -84,6 +84,8 @@ void* v_pop(Vec* v) {
 	return retval;
 }
 
+// Assumes that the first struct var is a uint32.
+
 void* find_by_uint32_id(Vec* v, uint32_t id) {
 	for (unsigned int i = 0; i < v->len; i++) {
 		void* thing = v->data + v->len * v->dlen * i;
