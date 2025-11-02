@@ -1,0 +1,1 @@
+// Until some proper central servers are up, or for individuals who want to use independently without modification, we use a username plus 8 digit passcode to log in. After 3 failed attempts, the given IP is banned temporarily and reported to logs.

@@ -5,8 +5,8 @@
 #include "vec2.h"
 
 typedef struct {
-	void* rawdata;
 	uint32_t id;
+	void* rawdata;
 	uint32_t map;
 	Vec2f pos;
 } Obj;

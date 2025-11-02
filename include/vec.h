@@ -13,6 +13,7 @@ typedef struct {
 
 Vec vec(size_t dlen, unsigned int len) {
 	Vec v;
+	len = len == 0 ? 1 : len;
 	v.data = malloc(dlen * len);
 	v.cursor = 0;
 	v.dlen = dlen;
