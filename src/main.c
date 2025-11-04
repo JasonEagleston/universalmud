@@ -7,14 +7,12 @@ struct GameState {
 	Vec clients;
 	Vec maps;
 	Vec objects;
-};
-
-struct UniqueIDGenerator {
-
+	uint64_t id_counter; // idk if it ever needs to be more complicated than this?
 };
 
 uint32_t get_available_id() {
-
+	GameState.id_counter++;
+	return GameState.id_counter - 1;
 }
 
 void client_connect();
@@ -22,6 +20,7 @@ void client_disconnect();
 void client_receive();
 
 void init_game_state() {
+	GameState.id_counter = 0;
 	GameState.clients = vec(sizeof(Client), 64);
 	GameState.maps = vec(sizeof(Map), 4);
 	GameState.objects = vec(sizeof(Obj), 1024);

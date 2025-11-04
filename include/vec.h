@@ -49,6 +49,10 @@ void v_push(Vec* v, void* data) {
 	v->cursor++;
 }
 
+void v_push_block(Vec* v, void* data, size_t len) {
+
+}
+
 void v_shift(Vec* v, int at, int len, bool right) {
 	void* data = malloc(v->len * v->dlen);
 	int free_space_after_cursor = 0;
