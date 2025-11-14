@@ -1,6 +1,9 @@
 #ifndef YUKEN_VEC
 #define YUKEN_VEC
 
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct {
 	void* data;
 	bool* pop;
@@ -100,7 +103,7 @@ unsigned int find_by_uint32_id(Vec* v, uint32_t id) {
 			return i;
 		}
 	}
-	return NULL;
+	return 0;
 }
 
 #endif

@@ -1,11 +1,13 @@
 #ifndef YUKEN_VEC2
 #define YUKEN_VEC2
 
+#include <stdint.h>
+
 enum VecType {
-	int_vec = 0b00000001;
-	float_vec = 0b00000010;
-	double_vec = 0b00000100;
-}
+	int_vec = 0b00000001,
+	float_vec = 0b00000010,
+	double_vec = 0b00000100,
+};
 
 typedef struct {
 	uint8_t type;
@@ -20,6 +22,7 @@ typedef struct {
 } Vec2f;
 
 typedef struct {
+	uint8_t type;
 	double x;
 	double y;
 } Vec2d;
@@ -54,21 +57,32 @@ Vec2d new_vec2d(double x, double y) {
 	return v;
 }
 
-PositionVec add_vec(void* a, void* b) {
-	PositionVec new_vec;
+union PositionVec add_vec(void* a, void* b) {
+	union PositionVec new_vec;
 
-	if (a->type != b->type) return ERR_MISMATCHED_TYPE;
+	if (*(uint8_t*)a != *(uint8_t*)b) return ERR_MISMATCHED_TYPE;
 
-	new_vec.type = a->type;
+
+
+
 	switch (new_vec.type) {
 		case int_vec:
-			new_vec.ivec = new_vec2(a->x + b->x, a->y + b->y);
+			Vec2* ia, ib;
+			ia = a;
+			ib = b;
+			new_vec.ivec = new_vec2(ia->x + ib->x, ia->y + ib->y);
 			break;
 		case float_vec:
-			new_vec.fvec = new_vec2f(a->x + b->x, a->y + b->y);
+			Vec2f* fa, fb;
+			fa = a;
+			fb = b;
+			new_vec.fvec = new_vec2f(fa->x + fb->x, fa->y + fb->y);
 			break;
 		case double_vec:
-			new_vec.dvec = new_vec2d(a->x + b->x, a->y + b->y);
+			Vec2d* da, db;
+			da = a;
+			db = b;
+			new_vec.dvec = new_vec2d(da->x + db->x, da->y + db->y);
 	}
 
 	return new_vec;
@@ -93,7 +107,7 @@ void flip_vec(void* a) {
 	}
 }
 
-PositionVec sub_vec(void* a, void* b) {
+union PositionVec sub_vec(void* a, void* b) {
 	return add_vec(a, flip_vec(b));
 }
 

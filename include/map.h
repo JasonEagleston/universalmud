@@ -1,12 +1,17 @@
 #ifndef UNIVERSAL_MUD_MAP
 #define UNIVERSAL_MUD_MAP
 
+#include <stdint.h>
+
+#include "vec.h"
+#include "vec2.h"
+
 enum TILE_ID {
 	GRASS = 1,
 	WATER = 2,
 	SAND = 3,
 	DIRT = 4
-}
+};
 
 typedef struct {
 	uint16_t type;

@@ -9,6 +9,7 @@ typedef struct {
 	void* rawdata;
 	uint32_t map;
 	Vec2f pos;
+	Vec2 bounds;
 } Obj;
 
 Obj new_obj(GameState*);

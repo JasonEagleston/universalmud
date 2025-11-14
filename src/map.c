@@ -1,4 +1,6 @@
+#include "err.h"
 #include "map.h"
+#include "obj.h"
 
 Map create_map(int width, int height) {
 	Map map;
