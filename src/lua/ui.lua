@@ -1,34 +1,28 @@
+local FileAccess = require("lua/fileaccess")
+local Vec2 = require("lua/vec2")
+
 local elements = {}
 
-Vec2 = {
-	x = 0,
-	y = 0
-}
-
-function Vec2:new()
-	local v = setmetatable({}, {__index = Vec2})
-
-	return v
-end
-
-function Vec2:add(a, b)
-	print(a, b)
-end
-
-function Vec2:sub(a, b)
-
-end
-
 UIElement = {
-	pos = nil
-	bounds = nil
+	pos = nil,
+	bounds = nil,
+	anchors = {},
+	text = "",
+	onclick = nil,
+	onhover = nil,
+	movable = 0,
+	resizable = 0,
 }
 
-function UIElement:new()
+function UIElement:new(x, y, bx, by)
 	local element = setmetatable({}, {__index = UIElement})
 
-	element.pos = Vec2:new()
-	element.bounds = Vec2:new()
+	element.pos = Vec2:new(x, y)
+	element.bounds = Vec2:new(bx, by)
 
 	return element
 end
+
+-- Import UI elements and load at start.
+
+
